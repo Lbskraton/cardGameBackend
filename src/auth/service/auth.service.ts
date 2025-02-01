@@ -42,6 +42,10 @@ export default class AuthService{
     
 
     static async register(user:User):Promise<any>{
+
+        if (!user.email) {
+            throw new httpException(400, "Email is required");
+        }
         
         const foundUser= await client.user.findUnique(
             {
