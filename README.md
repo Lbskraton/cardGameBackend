@@ -60,6 +60,8 @@ npx npm-check-updates //comprueba actualizaciones
 
 npx npm-check-updates -u //actualiza
 
+npm install @libsql/client @prisma/adapter-libsql
+
 ```
 //Recomendable instalar extension de prisma de vscode
 
