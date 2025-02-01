@@ -3,7 +3,7 @@ import { httpException } from "../../exceptions/httpException";
 import { UserService } from "../../user/service/user.service";
 import bcrypt from 'bcrypt'
 import  jwt  from "jsonwebtoken";
-import { createClient } from '@libsql/client/.';
+import { createClient } from '@libsql/client';
 import { PrismaLibSQL } from '@prisma/adapter-libsql';
 
 

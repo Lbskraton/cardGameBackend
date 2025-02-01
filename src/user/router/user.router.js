@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = require("express");
+var isAdmin_middleware_1 = require("../../middleware/isAdmin.middleware");
+var auth_middleware_1 = require("../../middleware/auth.middleware");
+var user_controller_1 = require("../controller/user.controller");
+var router = (0, express_1.Router)();
+router.post('/userlist', auth_middleware_1.isAuthenticate, isAdmin_middleware_1.isAdmin, user_controller_1.default.listUsers);
+router.post('/profile', auth_middleware_1.isAuthenticate, user_controller_1.default.profile);
+exports.default = router;
