@@ -25,9 +25,9 @@ const TOKEN_PASSWORD=process.env.TOKEN_PASSWORD || 'pass'
 export default class AuthService{
 
     
-    static async login(email: any, password: any) {
+    static async login(email: string, password: any) {
 
-        const foundUser=await client.user.findUnique({where:{email}})
+        const foundUser=await client.user.findUnique({where:{email:email}})
         if(!foundUser) throw new httpException(401,`Invalid user or password`)
         
         const isCorrectPassword=await bcrypt.compare(password,foundUser.password)
@@ -44,7 +44,7 @@ export default class AuthService{
     static async register(user:User):Promise<any>{
         
         const email=user.email
-        const foundUser=await  client.user.findUnique({where:{email}, omit:{password:true}})
+        const foundUser=await  client.user.findUnique({where:{email:email}, omit:{password:true}})
         if(!foundUser) throw new httpException(409,`User ${user.email} already exists`)
         //encriptar el password
         const passwordEncrypted= await bcrypt.hash(user.password,10)
