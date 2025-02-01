@@ -1,0 +1,48 @@
+{
+  "name": "backendcard",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "swc scr -d dist  --source-maps --copy-files",
+    "start": "node dist/src/server.js",
+    "prisma:init": "prisma init",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev --preview-feature",
+    "dev": "tsc watch src/server.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "````bash",
+  "devDependencies": {
+    "@swc/cli": "^0.6.0",
+    "@swc/core": "^1.10.12",
+    "@types/cookie-parser": "^1.4.8",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.8",
+    "@types/node": "^22.12.0",
+    "bcrypt": "^5.1.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.3.0",
+    "@types/bcrypt": "^5.0.2",
+    "@types/compression": "^1.7.5",
+    "compression": "^1.7.5",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "esbuild": "^0.24.2",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "express-validator": "^7.2.1",
+    "get-tsconfig": "^4.10.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "prisma": "^6.3.0",
+    "resolve-pkg-maps": "^1.0.0",
+    "undici-types": "^7.3.0"
+  },
+  "keywords": []
+}
