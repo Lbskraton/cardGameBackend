@@ -10,6 +10,7 @@ npx tsc --init
 
 
 npm install @types/node 
+npm i --save-dev @types/node
 
 
 npm i express

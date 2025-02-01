@@ -1,4 +1,4 @@
-import { PrismaClient, User } from "@prisma/client";
+import { PrismaClient, User } from "@prisma/client"
 import { httpException } from "../../exceptions/httpException";
 import { UserService } from "../../user/service/user.service";
 import bcrypt from 'bcrypt'
