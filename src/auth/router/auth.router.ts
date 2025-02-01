@@ -5,6 +5,6 @@ import { isAuthenticate } from "../../middleware/auth.middleware";
 const router=Router()
 
 router.post('/login',isAuthenticate,AuthService.login)
-router.post('/register',isAuthenticate,AuthService.register)
+router.post('/register',AuthService.register)
 
 export default router
