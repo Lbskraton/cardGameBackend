@@ -23,11 +23,11 @@ app.use(compression())
 app.use(cookieParser())
 
 
-const limiter=rateLimit({
+/*const limiter=rateLimit({
     max:10000,
     windowMs: 1000*15*60 
-})
-app.use(limiter)
+})*/
+//app.use(limiter)
 
 app.use(ErrorMiddleware)
 
