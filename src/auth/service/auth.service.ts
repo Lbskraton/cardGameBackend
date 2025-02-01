@@ -43,8 +43,11 @@ export default class AuthService{
 
     static async register(user:User):Promise<any>{
         
-        const email=user.email
-        const foundUser=await  client.user.findUnique({where:{email:email}, omit:{password:true}})
+        const foundUser= await client.user.findUnique(
+            {
+                where: {email:user.email}
+            }
+        )
         if(!foundUser) throw new httpException(409,`User ${user.email} already exists`)
         //encriptar el password
         const passwordEncrypted= await bcrypt.hash(user.password,10)
