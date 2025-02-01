@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "swc scr -d dist  --source-maps --copy-files",
+    "build": "swc src -d dist --source-maps --copy-files",
     "start": "node dist/src/server.js",
     "prisma:init": "prisma init",
     "prisma:generate": "prisma generate",
