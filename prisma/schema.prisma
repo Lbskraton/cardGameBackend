@@ -28,4 +28,3 @@ model User {
   updatedAt DateTime @updatedAt //actualiza automatico
 
 }
-

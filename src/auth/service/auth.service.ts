@@ -1,21 +1,12 @@
-import { PrismaClient,User } from '@prisma/client'
+import { User } from '@prisma/client'
 import { httpException } from "../../exceptions/httpException";
-import { UserService } from "../../user/service/user.service";
 import bcrypt from 'bcrypt'
 import  jwt  from "jsonwebtoken";
-import { createClient } from '@libsql/client';
-import { PrismaLibSQL } from '@prisma/adapter-libsql';
+import { prisma } from '../../database/database';
 
 
-const libsql = createClient({
-    url: `${process.env.TURSO_DATABASE_URL}`,
-    authToken: `${process.env.TURSO_AUTH_TOKEN}`,
-  })
-  
-const adapter = new PrismaLibSQL(libsql)
 
-
-const client=new PrismaClient({adapter})
+const client=prisma
 const TOKEN_PASSWORD=process.env.TOKEN_PASSWORD || 'pass'
 
 
