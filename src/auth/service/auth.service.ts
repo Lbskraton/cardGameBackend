@@ -39,7 +39,7 @@ export default class AuthService{
         }
         
         const foundUser = await prisma.user.findUnique({where: {email: user.email}})
-        if(!foundUser) throw new httpException(409,`User ${user.email} already exists`)
+        if(foundUser) throw new httpException(409,`User ${user.email} already exists`)
         //encriptar el password
         const passwordEncrypted= await bcrypt.hash(user.password,10)
         user.password=passwordEncrypted //por si escaso
