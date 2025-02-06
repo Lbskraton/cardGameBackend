@@ -6,9 +6,10 @@ class AuthController{
     
     static async register(req:Request,res:Response,next:NextFunction){
         try {
-            const userData=req.body //vienen por post en el cuerpo de la peticion
-            const newUser=await AuthService.register(userData)
-            res.status(201).json({message:"User egistered succesfully",newUser})
+            const userData = req.body
+            //TODO validar el body
+            const newUser = await AuthService.register(userData)
+            res.status(201).json({message:'User register successfully', newUser})
         } catch (error) {
             next(error)
         }

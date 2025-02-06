@@ -38,19 +38,21 @@ export default class AuthService{
             throw new httpException(400, "Email is required");
         }
         
-        const foundUser= await client.user.findUnique(
-            {
-                where: {email:user.email}
-            }
-        )
+        const foundUser = await prisma.user.findUnique({where: {email: user.email}})
         if(!foundUser) throw new httpException(409,`User ${user.email} already exists`)
         //encriptar el password
         const passwordEncrypted= await bcrypt.hash(user.password,10)
         user.password=passwordEncrypted //por si escaso
         //guardar el usuario en la bd
         return await client.user.create({
-            data:{...user,password:passwordEncrypted,role:null},
-            omit:{password:true} //no devuelva el password
+            data:{
+            ...user,
+            password: passwordEncrypted,
+            role: null
+        },
+        omit:{
+            password:true
+        }
         })
         
     }
