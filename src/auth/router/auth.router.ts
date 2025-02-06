@@ -1,10 +1,11 @@
 import { Router } from "express";
 import AuthService from "../service/auth.service";
 import { isAuthenticate } from "../../middleware/auth.middleware";
+import AuthController from "../controller/auth.controller";
 
 const router=Router()
 
-router.post('/login',isAuthenticate,AuthService.login)
-router.post('/register',AuthService.register)
+router.post('/login',isAuthenticate,AuthController.login)
+router.post('/register',AuthController.register)
 
 export default router

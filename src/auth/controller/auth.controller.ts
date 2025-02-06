@@ -8,6 +8,7 @@ class AuthController{
         try {
             const userData = req.body
             //TODO validar el body
+            //console.log('User Data: '+userData)
             const newUser = await AuthService.register(userData)
             res.status(201).json({message:'User register successfully', newUser})
         } catch (error) {
