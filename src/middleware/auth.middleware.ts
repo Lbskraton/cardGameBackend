@@ -9,10 +9,13 @@ export const isAuthenticate=(req:Request,res:Response,next:NextFunction):any=>{
     const token=req.cookies.token
     //const token=req.headers.authorization?.split(" ")[1]
     if(!token) return res.status(401).json({error:'Access denied'})
-    
+        console.log(token)
     try {
+        console.log(token)
+        console.log(jwt.verify(token, TOKEN_PASSWORD))
         const tokenDecoded = jwt.verify(token, TOKEN_PASSWORD)
         //req.headers.user=tokenDecoded
+        
         req.user=tokenDecoded as customJwtPayload
         //pasar el testigo al siguiente middleware
         next()
