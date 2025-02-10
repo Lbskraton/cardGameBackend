@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import jwt from "jsonwebtoken";
 import { customJwtPayload } from "../types/express";
+
+import jwt from "jsonwebtoken";
 
 const TOKEN_PASSWORD=process.env.TOKEN_PASSWORD || 'pass'
 

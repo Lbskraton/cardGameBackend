@@ -27,7 +27,7 @@ export default class AuthService{
         const token=jwt.sign(
             {id:foundUser.id,name:foundUser.name,email:foundUser.email,rol:foundUser.role},
             TOKEN_PASSWORD,
-            {expiresIn:"1h"})  
+            {expiresIn:"9h"})  
     }
 
     
