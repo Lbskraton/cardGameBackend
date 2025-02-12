@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-   "dev": "tsx watch src/server.ts",
+    "dev": "tsx watch src/server.ts",
     "build": "swc src -d dist --source-maps --copy-files",
     "start": "node dist/src/server.js",
     "prisma:init": "prisma init",
@@ -44,6 +44,7 @@
     "helmet": "^8.0.0",
     "jsonwebtoken": "^9.0.2",
     "resolve-pkg-maps": "^1.0.0",
+    "socket.io": "^4.8.1",
     "undici-types": "^7.3.0"
   },
   "keywords": []

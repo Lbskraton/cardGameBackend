@@ -22,8 +22,8 @@ export default class AuthService{
         if(!foundUser) throw new httpException(401,`Invalid user or password`)
         
         const isCorrectPassword=await bcrypt.compare(password,foundUser.password)
-        console.log(password)
-        console.log(foundUser.password)
+        
+        
         if(!isCorrectPassword) throw new httpException(401,`Invalid user or password`)
         //inyecto token autenticacion
         const token=jwt.sign(

@@ -62,6 +62,8 @@ npx npm-check-updates -u //actualiza
 
 npm install @libsql/client @prisma/adapter-libsql
 
+npm install socket.io
+
 ```
 //Recomendable instalar extension de prisma de vscode
 

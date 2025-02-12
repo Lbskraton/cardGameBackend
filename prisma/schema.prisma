@@ -27,4 +27,52 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt //actualiza automatico
 
+  scores Score[]
+
+
 }
+
+model Game{
+  id Int @id @default(autoincrement())
+  type String
+
+  idDeck Int 
+  deck Deck @relation(fields: [idDeck],references: [id])
+
+  Score Score[]
+}
+
+model Score{
+  
+  @@id([idGame,idUser])
+  value Int
+
+  idGame Int
+  game Game  @relation(fields:[idGame],references: [id])
+  
+  idUser Int
+  user User @relation(fields:[idUser],references: [id])
+
+
+
+}
+
+model Deck{
+  id Int @id @default(autoincrement())
+  name String @unique
+  
+  
+  Card Card[]
+  Game Game[]
+}
+
+model Card{
+  id Int @id @default(autoincrement())
+  numeral Int
+  suit String
+  @@unique([numeral,suit,idDeck])
+  idDeck Int 
+  deck Deck @relation(fields: [idDeck],references: [id])
+  
+}
+
