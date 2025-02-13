@@ -12,7 +12,7 @@ const app=express()
 app.use(express.json())
 
 app.use(cors({
-    origin: ['*','https://cardgamefrontend.onrender.com'],
+    origin: ['*','https://cardgamefrontend.onrender.com',"http://localhost:3000","http://localhost:5173"],
     methods:['GET','POST','PUT','DELETE'],
     credentials:true,
     allowedHeaders: ['Content-Type', 'Authorization']
