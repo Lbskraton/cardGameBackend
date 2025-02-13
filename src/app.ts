@@ -14,7 +14,8 @@ app.use(express.json())
 app.use(cors({
     origin: ['*','https://cardgamefrontend.onrender.com'],
     methods:['GET','POST','PUT','DELETE'],
-    credentials:true
+    credentials:true,
+    allowedHeaders: ['Content-Type', 'Authorization']
 }))
 
 app.use(helmet())
