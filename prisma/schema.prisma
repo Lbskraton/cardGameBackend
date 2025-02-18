@@ -32,28 +32,50 @@ model User {
 
 }
 
-model Game{
+model GameType{
   id Int @id @default(autoincrement())
-  type String
+  name String
 
   idDeck Int 
   deck Deck @relation(fields: [idDeck],references: [id])
 
-  Score Score[]
+  minRounds Int @default(1)
+  maxRounds Int @default(999)
+
+  maxUsers Int
+  minUsers Int @default(2)
+
+  Game Game[]
+}
+
+
+
+model Game{
+  id Int @id @default(autoincrement())
+  type String
+
+  idGameTypeid Int
+  idGameType GameType @relation(fields: [idGameTypeid], references: [id])
+
+
+  rounds Round[]
+
+  
 }
 
 model Score{
   
-  @@id([idGame,idUser])
-  value Int
+  @@id([idRound,idUser])
+  value Int?
+  winner Boolean?
 
-  idGame Int
-  game Game  @relation(fields:[idGame],references: [id])
+  playing Boolean
+
+  idRound Int
+  round Round  @relation(fields:[idRound],references: [id])
   
   idUser Int
   user User @relation(fields:[idUser],references: [id])
-
-
 
 }
 
@@ -62,17 +84,19 @@ model Deck{
   name String @unique
   
   
-  Card Card[]
-  Game Game[]
+  gameType GameType[]
 }
 
-model Card{
+model Round{
   id Int @id @default(autoincrement())
-  numeral Int
-  suit String
-  @@unique([numeral,suit,idDeck])
-  idDeck Int 
-  deck Deck @relation(fields: [idDeck],references: [id])
+
   
+
+  gameid Int
+  game Game @relation(fields: [gameid], references: [id])
+
+  Score Score[]
+
 }
+
 
