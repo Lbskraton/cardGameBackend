@@ -1,39 +1,21 @@
-import { Socket } from 'dgram'
-import express from 'express'
-const app = express()
-import http from 'http'
-const server = http.createServer(app)
-import {Server} from 'socket.io'
+import { Game } from '@prisma/client'
 
+export default class GameService{
 
-const io = new Server(server, {
-    cors: {
-      origin: '*',
-      methods: ['GET', 'POST']
+    static async createGame(game:Partial<Game>){
+
     }
-});
 
+    static async deleteGame(game:Partial<Game>){
+        
+    }
 
+    static async updateGame(game:Partial<Game>){
+        
+    }
 
-io.on('connection', socketCliente =>{ // me llega un cliente nuevo
-    console.log('Nuevo cliente conectado:',socketCliente.handshake.address)
+    static async addGamePalyers(game:Partial<Game>){
+        
+    }
 
-    socketCliente.on('joinRoom',()=>{})
-   
-    socketCliente.on('disconnect', ()=>{
-        console.log('El cliente se desconectó')
-    })
-
-    socketCliente.on('selectCard', msg=>{
-        io.emit('texto', msg)
-    })
-
-
-    socketCliente.on('playCard',res=>{io.emit})
-
-    socketCliente
-})
-
-server.listen(3000, ()=>{
-    console.log('Servidor a la escucha en puerto 3000')
-})
+}

@@ -27,9 +27,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt //actualiza automatico
 
-  scores Score[]
-
-
+  GameParticipant GameParticipant[]
 }
 
 model GameType{
@@ -61,22 +59,35 @@ model Game{
   rounds Round[]
 
   
+
+  GameParticipant GameParticipant[]
+}
+
+model GameParticipant {
+  id       Int    @id @default(autoincrement())
+  gameId   Int
+  game     Game   @relation(fields: [gameId], references: [id])
+  userId   Int
+  user     User   @relation(fields: [userId], references: [id])
+  scores   Score[]
+
+  @@unique([gameId, userId])
 }
 
 model Score{
   
-  @@id([idRound,idUser])
-  value Int?
-  winner Boolean?
+  @@id([idRound, idGameParticipant])
+  value     Int?
+  winner    Boolean?
+  playing   Boolean
 
-  playing Boolean
-
-  idRound Int
-  round Round  @relation(fields:[idRound],references: [id])
+  idRound   Int
+  round     Round           @relation(fields: [idRound], references: [id])
   
-  idUser Int
-  user User @relation(fields:[idUser],references: [id])
+  idGameParticipant Int
+  gameParticipant GameParticipant @relation(fields: [idGameParticipant], references: [id])
 
+  @@unique([idRound, idGameParticipant])
 }
 
 model Deck{
