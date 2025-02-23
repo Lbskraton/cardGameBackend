@@ -3,6 +3,7 @@ import { httpException } from "../../exceptions/httpException";
 import bcrypt from 'bcrypt'
 import  jwt  from "jsonwebtoken";
 import { prisma } from '../../database/database';
+import { NextFunction, Request, Response } from 'express';
 
 
 
@@ -57,6 +58,15 @@ export default class AuthService{
         }
         })
         
+    }
+
+    static async logout(req: Request, res: Response, next: NextFunction) {
+        try {
+            res.clearCookie('token')
+            res.status(204).json({ message: 'Logout successfully:' })
+        } catch (error) {
+            next(error)
+        }
     }
 
 }
