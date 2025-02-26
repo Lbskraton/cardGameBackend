@@ -31,6 +31,8 @@ export default class AuthService{
             {id:foundUser.id,name:foundUser.name,email:foundUser.email,rol:foundUser.role},
             TOKEN_PASSWORD,
             {expiresIn:"9h"})  
+
+        return {token, user: { id: foundUser.id, email: foundUser.email, role: foundUser.role } }
     }
 
     
