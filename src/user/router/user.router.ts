@@ -6,7 +6,7 @@ import UserController from "../controller/user.controller";
 
 const router=Router()
 
-router.post('/userlist',isAuthenticate,isAdmin,UserController.listUsers)
-router.post('/profile',isAuthenticate,UserController.profile)
+router.get('/userlist',isAuthenticate,isAdmin,UserController.listUsers)
+router.get('/profile',isAuthenticate,UserController.profile)
 
 export default router

@@ -21,7 +21,7 @@ class UserController{
         try{
             const users=await UserService.listAll()
 
-        res.status(200).json(users)
+            res.status(200).json(users)
         }catch(error){
             next(error)
             

@@ -1,8 +1,8 @@
 
 import { PrismaClient, User } from "@prisma/client"
 import { httpException } from "../../exceptions/httpException"
+import { prisma } from "../../database/database"
 
-const prisma=new PrismaClient()
 
 
 export class UserService{
@@ -21,7 +21,11 @@ export class UserService{
     }
 
 
-    static async listAll():Promise<any>{
-        return await prisma.user.findMany({omit:{password:true}})
+    static async listAll(){
+        const users = await prisma.user.findMany({
+            omit: {password:true}
+        })
+        console.log(users)
+        return users
     }
 }
