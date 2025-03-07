@@ -28,7 +28,7 @@ export default class AuthService{
         if(!isCorrectPassword) throw new httpException(401,`Invalid user or password`)
         //inyecto token autenticacion
         const token=jwt.sign(
-            {id:foundUser.id,name:foundUser.name,email:foundUser.email,rol:foundUser.role},
+            {id:foundUser.id,name:foundUser.name,email:foundUser.email,role:foundUser.role},
             TOKEN_PASSWORD,
             {expiresIn:"9h"})  
 

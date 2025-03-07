@@ -1,5 +1,5 @@
 export interface customJwtPayload{
-    id:number,name:string,email:string,rol:string
+    id:number,name:string,email:string,role:string
 }
 
 
