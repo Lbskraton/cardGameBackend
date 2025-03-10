@@ -1,4 +1,5 @@
 import { Game } from '@prisma/client'
+import { prisma } from "../../database/database"
 
 export default class GameService{
 
