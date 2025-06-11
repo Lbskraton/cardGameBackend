@@ -11,17 +11,30 @@ export default class DeckService{
 
     }
 
+    static async getDeckById(id:number) {
+        const foundDeck=await prisma.deck.findUnique({where:{id}})
+        if(!foundDeck) throw new httpException(404,'Deck not found')
+        return await prisma.deck.findUnique({where:{id}})      
+    }
+
+    static async getDeckCards(id:number) {
+        const foundDeck=await prisma.deck.findUnique({where:{id}})
+        if(!foundDeck) throw new httpException(404,'Deck not found')
+        //Obtengo las cartas junto con el deck
+        return await prisma.deck.findUnique({where:{id},include:{Cards: true}})
+    }
+
     static async delete(id:number) {
 
-        const foundGametype=await prisma.deck.findUnique({where:{id}})
-        if(!foundGametype) throw new httpException(404,'Deck not found')
+        const foundDeck=await prisma.deck.findUnique({where:{id}})
+        if(!foundDeck) throw new httpException(404,'Deck not found')
         return await prisma.deck.delete({where:{id}})      
     }
 
     static async update(id:number,deck:Deck){
 
-        const foundGametype=await prisma.deck.findUnique({where:{id}})
-        if(!foundGametype) throw new httpException(404,'Deck not found')
+        const foundDeck=await prisma.deck.findUnique({where:{id}})
+        if(!foundDeck) throw new httpException(404,'Deck not found')
         return await prisma.deck.update({where:{id},data:{...deck}})
         
     }

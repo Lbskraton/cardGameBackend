@@ -90,13 +90,7 @@ model Score{
   @@unique([idRound, idGameParticipant])
 }
 
-model Deck{
-  id Int @id @default(autoincrement())
-  name String @unique
-  
-  
-  gameType GameType[]
-}
+
 
 model Round{
   id Int @id @default(autoincrement())
@@ -108,6 +102,29 @@ model Round{
 
   Score Score[]
 
+}
+
+model Deck{
+  id Int @id @default(autoincrement())
+  name String @unique
+  
+  
+  gameType GameType[]
+
+  Cards Card[]
+}
+
+
+
+model Card{
+  id Int @id @default(autoincrement())
+  value String
+  suit String
+  entity String
+  frontImg Bytes?
+  //Cada carta tiene un unico mazo, relacion 1 suite, multiples cartas
+  deck Deck @relation(fields: [deckId], references: [id])
+  deckId Int
 }
 
 
