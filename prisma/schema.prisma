@@ -32,6 +32,10 @@ model User {
   Deck Deck[]
 
   Card Card[]
+
+  Game Game[]
+
+  GameType GameType[]
 }
 
 model GameType{
@@ -47,6 +51,10 @@ model GameType{
   minUsers Int @default(1)
 
   time Int?
+
+  //Creador
+   idUserCreator Int?
+  userCreator User? @relation(fields:[idUserCreator],references: [id])
 
   Game Game[]
 }
@@ -71,11 +79,15 @@ model Game{
   idGameTypeid Int
   idGameType GameType @relation(fields: [idGameTypeid], references: [id])
 
+  //Creador
+   idUserCreator Int?
+  userCreator User? @relation(fields:[idUserCreator],references: [id])
 
+  //Rondas
   rounds Round[]
 
   
-
+  //Usuarios
   GameParticipant GameParticipant[]
 }
 
@@ -95,7 +107,7 @@ model Score{
   @@id([idRound, idGameParticipant])
   value     Int?
   winner    Boolean?
-  playing   Boolean
+  playing   Boolean?
 
   idRound   Int
   round     Round           @relation(fields: [idRound], references: [id])

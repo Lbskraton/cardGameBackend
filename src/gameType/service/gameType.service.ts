@@ -2,11 +2,11 @@ import { GameType } from '@prisma/client'
 import { prisma } from "../../database/database"
 import { httpException } from '../../exceptions/httpException'
 
-export default class GameService{
+export default class GameTypeService{
 
-    static async create(gameType:GameType){
+    static async create(userId:number,gameType:GameType){
         return await prisma.gameType.create( {data: {
-            ...gameType
+            ...gameType,idUserCreator:userId
           }})
 
     }
@@ -37,3 +37,4 @@ export default class GameService{
     
 
 }
+
