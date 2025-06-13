@@ -7,6 +7,7 @@ import helmet from 'helmet'
 import AuthRouter from './auth/router/auth.router'
 import UserRouter from './user/router/user.router'
 import { ErrorMiddleware } from './middleware/error.middleware'
+import DeckRouter from './deck/router/deck.router'
 
 const app=express()
 app.use(express.json())
@@ -34,6 +35,7 @@ app.use(ErrorMiddleware)
 
 app.use('/api/auth/',AuthRouter)
 app.use('/api/users/',UserRouter)
+app.use('/api/decks/',DeckRouter)
 
 export default app
 

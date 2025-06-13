@@ -28,29 +28,45 @@ model User {
   updatedAt DateTime @updatedAt //actualiza automatico
 
   GameParticipant GameParticipant[]
+
+  Deck Deck[]
+
+  Card Card[]
 }
 
 model GameType{
   id Int @id @default(autoincrement())
   name String
 
-  idDeck Int 
-  deck Deck @relation(fields: [idDeck],references: [id])
+  decks     GameTypeDeck[]      // Relación muchos a muchos
 
   minRounds Int @default(1)
   maxRounds Int @default(999)
 
-  maxUsers Int
-  minUsers Int @default(2)
+  maxUsers Int @default(1)
+  minUsers Int @default(1)
+
+  time Int?
 
   Game Game[]
+}
+
+model GameTypeDeck {
+  //Para asociar multiples decks a multiples gametypes y viceverda
+  gameTypeId Int
+  deckId     Int
+
+  gameType   GameType @relation(fields: [gameTypeId], references: [id])
+  deck       Deck     @relation(fields: [deckId], references: [id])
+
+  @@id([gameTypeId, deckId]) // Clave primaria compuesta
 }
 
 
 
 model Game{
   id Int @id @default(autoincrement())
-  type String
+  //type String
 
   idGameTypeid Int
   idGameType GameType @relation(fields: [idGameTypeid], references: [id])
@@ -95,8 +111,6 @@ model Score{
 model Round{
   id Int @id @default(autoincrement())
 
-  
-
   gameid Int
   game Game @relation(fields: [gameid], references: [id])
 
@@ -108,8 +122,11 @@ model Deck{
   id Int @id @default(autoincrement())
   name String @unique
   
+  idUserCreator Int?
+  userCreator User? @relation(fields:[idUserCreator],references: [id])
+
   
-  gameType GameType[]
+  gameTypes GameTypeDeck[] // Relación muchos a muchos
 
   Cards Card[]
 }
@@ -120,11 +137,19 @@ model Card{
   id Int @id @default(autoincrement())
   value String
   suit String
+  //Unicode Asociado si no tiene imagen
   entity String
   frontImg Bytes?
+
   //Cada carta tiene un unico mazo, relacion 1 suite, multiples cartas
-  deck Deck @relation(fields: [deckId], references: [id])
   deckId Int
+  deck Deck @relation(fields: [deckId], references: [id])
+  
+
+  //quien ha creado la carta
+  idUserCreator Int?
+  userCreator User? @relation(fields:[idUserCreator],references: [id])
+
 }
 
 

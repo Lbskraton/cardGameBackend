@@ -4,9 +4,10 @@ import { httpException } from '../../exceptions/httpException'
 
 export default class DeckService{
 
-    static async create(deck:Deck){
+    static async create(userId:number,deck:Deck){
         return await prisma.deck.create( {data: {
-            ...deck
+            ...deck,
+            idUserCreator:userId
           }})
 
     }
@@ -16,6 +17,32 @@ export default class DeckService{
         if(!foundDeck) throw new httpException(404,'Deck not found')
         return await prisma.deck.findUnique({where:{id}})      
     }
+
+    static async getDecksByName(name:string) {
+        const foundDecks=await prisma.deck.findMany({
+            where: name ?{  //meto una ternaria para filtrar
+                name: {
+                    contains: name
+                }
+            }:{},
+            orderBy:{
+                name: "desc"
+                
+            }
+        })
+        
+        if(!foundDecks) throw new httpException(404,'Decks not found by name '+name)
+        return foundDecks      
+    }
+
+     static async getSuites(id:number) {
+        const foundDeck=await prisma.deck.findUnique({where:{id}})
+        if(!foundDeck) throw new httpException(404,'Deck not found')
+        //Obtengo las suites presentes en la baraja
+        return await prisma.card.findUnique({where:{id},select:{ suit:true }})
+    }
+
+
 
     static async getDeckCards(id:number) {
         const foundDeck=await prisma.deck.findUnique({where:{id}})

@@ -54,9 +54,11 @@ class DeckController {
 
     static async create(req:Request,res:Response,next:NextFunction) {
           try{
-            const id=Number.parseInt(req.params.id)
+              //Saco el creador del deck del user que va en la request (auth middleware)
+            const idUserCreator=req.user.id
+            //Y el propio deck del body
             const deckRegister=req.body
-            const nDeck=DeckService.create(deckRegister)
+            const nDeck=DeckService.create(idUserCreator,deckRegister)
             res.status(201).json({message:"Deck registered succesfully",nDeck})
         }catch(error){
             next(error)

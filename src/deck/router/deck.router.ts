@@ -8,7 +8,8 @@ import { deckValidation } from "../../middleware/validator.middleware";
 const router=Router()
 
 router.get('/',isAuthenticate,DeckController.listDecks)
-router.put('/:id/',isAuthenticate,isAdmin,deckValidation,ValidationMiddleware,DeckController.update)
+router.get('/:id',isAuthenticate,DeckController.getDeckCards)
+router.put('/:id',isAuthenticate,isAdmin,deckValidation,ValidationMiddleware,DeckController.update)
 
 //add un deck, datos van en el body
 router.post('/',isAuthenticate,isAdmin,ValidationMiddleware,DeckController.create)
