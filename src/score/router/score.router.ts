@@ -15,4 +15,6 @@ router.delete('/:idgame',isAuthenticate,isAdmin,scoreController.delete)
 
 router.put('/:idgame',isAuthenticate,scoreController.update)
 
+router.get('/:idgame',isAuthenticate,scoreController.getScoresByUserAndGame)
+
 export default router
