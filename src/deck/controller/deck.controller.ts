@@ -6,15 +6,12 @@ class DeckController {
     static async listDecks(req:Request,res:Response,next:NextFunction) {
         
         try {
-               const deckId=Number.parseInt(req.params.id)
-               const cat=await DeckService.getDeckById(deckId)
-               res.status(200).json(cat)
+               const decks=await DeckService.getAll()
+               res.status(200).json(decks)
                
         } catch (error) {
                next(error)
         }
-
-
 
     }
 

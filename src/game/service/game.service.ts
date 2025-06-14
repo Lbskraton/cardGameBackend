@@ -4,29 +4,28 @@ import { httpException } from '../../exceptions/httpException'
 
 export default class GameService{
 
-    static async createGame(userId:number,game:Game){
+    static async create(userId:number,game:Game){
         return await prisma.game.create( {data: {
             ...game,idUserCreator:userId
           }})
 
     }
 
-    static async deleteGame(id:number){
+    static async delete(id:number){
         const foundGame=await prisma.game.findUnique({where:{id}})
         if(!foundGame) throw new httpException(404,'Game not found')
         return await prisma.gameType.delete({where:{id}})
     }
 
-    static async updateGame(id:number,game:Game){
+    static async update(id:number,game:Game){
          const foundGame=await prisma.game.findUnique({where:{id}})
         if(!foundGame) throw new httpException(404,'Game not found')
         return await prisma.game.update({where:{id},data:{...foundGame}})
         
     }
 
-    static async addGamePlayers(userId:number,game:Game){
+    static async addGamePlayers(userId:number,gameId:number){
         //compruebo que el juego exista
-        const gameId=game.id
         const foundGame=await prisma.game.findUnique({where:{id:gameId}})
         if(!foundGame) throw new httpException(404,'Game not found')
         
@@ -41,7 +40,26 @@ export default class GameService{
         
     }
 
-    static async createRound(userId:number,gameId:number,round:Round){
+    static async getById(gameId:number){
+        const foundGame=await prisma.game.findUnique({where:{id:gameId}})
+        if(!foundGame) throw new httpException(404,'Game not found')
+        return  foundGame
+    }
+
+    static async getAllByUser(userId:number){
+        //Busco con la tabla de relacion gameParticipan los juegos donde participo
+        const gameParticipated=await prisma.gameParticipant.findMany({
+            where: { userId },
+            include: {
+                game: true
+            }
+        });
+        
+        //filtro para solo obtener los datos del juego
+        return gameParticipated.map(gp => gp.game);
+    }
+
+    static async createRound(gameId:number,round:Round){
         const foundGame=await prisma.game.findUnique({where:{id:gameId}})
         if(!foundGame) throw new httpException(404,'Game not found')
 
@@ -56,28 +74,39 @@ export default class GameService{
         
     }
 
-    static async updateRound(id:number,game:Game){
-         const foundGame=await prisma.game.findUnique({where:{id}})
-        if(!foundGame) throw new httpException(404,'Game not found')
-
-            
-        return await prisma.game.update({where:{id},data:{...foundGame}})
+    static async updateRound(roundId:number,round:Round){
+        const foundRound=await prisma.round.findUnique({where:{id:roundId}})
+        if(!foundRound) throw new httpException(404,'Round not found')
+        return await prisma.round.update({where:{id:roundId},data:{...round}})
         
     }
 
-    static async createScore(userId:number,round:Round,score:Partial<Score>){
-        const foundRound=await prisma.round.findUnique({where:{id:round.id}})
-        if(!foundRound) throw new httpException(404,'Game not found')
+    static async createScore(userId:number,roundId:number,score:Partial<Score>){
+        const foundRound=await prisma.round.findUnique({where:{id:roundId}})
+        if(!foundRound) throw new httpException(404,'Round not found')
 
         return await prisma.score.create({
             data: {
-                ...round,
+                ...score,
                 idGameParticipant: userId,
-                idRound:round.id
+                idRound:roundId
 
             },
         });
 
+
+    }
+
+    static async updateScore(idGameParticipant:number,idRound:number,score:Score){
+        const foundScore=await prisma.score.findUnique({where: {
+                    idRound_idGameParticipant: {
+                    idRound,
+                    idGameParticipant,
+                }
+            }
+        })
+        if(!foundScore) throw new httpException(404,'Score not found')
+        return await prisma.score.update({where:{idRound_idGameParticipant:{idRound,idGameParticipant}},data:{...score}})
 
     }
 

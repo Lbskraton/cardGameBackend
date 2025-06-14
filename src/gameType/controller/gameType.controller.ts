@@ -43,6 +43,18 @@ class gameTypeController{
         }
     }
 
+    static async getAll(req:Request,res:Response,next:NextFunction) {
+            
+            try {
+                   const gameTypes=await GameTypeService.getAll
+                   res.status(200).json(gameTypes)
+                   
+            } catch (error) {
+                   next(error)
+            }
+    
+        }
+
 }
 
 export  default gameTypeController

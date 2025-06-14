@@ -26,14 +26,14 @@ export default class CardService{
     static async delete(id:number) {
 
         const foundDeck=await prisma.deck.findUnique({where:{id}})
-        if(!foundDeck) throw new httpException(404,'Deck not found')
+        if(!foundDeck) throw new httpException(404,'Card not found')
         return await prisma.deck.delete({where:{id}})      
     }
 
     static async update(id:number,card:Card){
 
         const foundCard=await prisma.deck.findUnique({where:{id}})
-        if(!foundCard) throw new httpException(404,'Deck not found')
+        if(!foundCard) throw new httpException(404,'Card not found')
         return await prisma.card.update({where:{id},data:{...card}})
         
     }
