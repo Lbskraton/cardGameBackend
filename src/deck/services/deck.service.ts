@@ -4,10 +4,17 @@ import { httpException } from '../../exceptions/httpException'
 
 export default class DeckService{
 
-    static async create(userId:number,deck:Deck){
+    static async create(userId:number, gameTypeIds:number[],deck:Deck){
+         const foundDeck= await prisma.deck.findUnique({where:{name:deck.name}})
+        if(foundDeck) throw new httpException(404,'Deck with this name found')
         return await prisma.deck.create( {data: {
             ...deck,
-            idUserCreator:userId
+            idUserCreator:userId,
+            gameTypes: {
+            create: gameTypeIds.map((gameTypeId: number) => ({
+            gameType: { connect: { id: gameTypeId } }
+            }))
+    }
           }})
 
     }
