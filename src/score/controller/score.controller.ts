@@ -22,10 +22,10 @@ class scoreController{
 
         try {
             const idUser=req.user.id
-            const idGame=Number.parseInt(req.params.idgame)
+            const idRound=Number.parseInt(req.params.idgame)
             const score=req.body
 
-            const nScore=scoreService.create(idUser,idGame,score)
+            const nScore=scoreService.create(idUser,idRound,score)
             res.status(201).json({message:"nScore registered succesfully",nScore})
         } catch (error) {
                 next(error)

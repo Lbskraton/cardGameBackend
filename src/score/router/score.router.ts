@@ -8,12 +8,12 @@ const router=Router()
 
 
 //paso la id del juego como parametro al add un score
-router.post('/:idgame',isAuthenticate,ValidationMiddleware,scoreController.create)
+router.post('/:idround',isAuthenticate,ValidationMiddleware,scoreController.create)
 
 //Borrar un game , el id va como ruta
-router.delete('/:idgame',isAuthenticate,isAdmin,scoreController.delete)
+router.delete('/:idround',isAuthenticate,isAdmin,scoreController.delete)
 
-router.put('/:idgame',isAuthenticate,scoreController.update)
+router.put('/:idround',isAuthenticate,scoreController.update)
 
 router.get('/:idgame',isAuthenticate,scoreController.getScoresByUserAndGame)
 
