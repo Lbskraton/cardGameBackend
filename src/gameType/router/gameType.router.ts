@@ -18,6 +18,6 @@ router.put('/:id',isAuthenticate,gameTypeController.update)
 router.get('/',isAuthenticate,gameTypeController.getAll)
 
 //Obtener 1 por la id de este
-router.get('/:id',isAuthenticate,gameTypeController.getAll)
+router.get('/:id',isAuthenticate,gameTypeController.getById)
 
 export default router
