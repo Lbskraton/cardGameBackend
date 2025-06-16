@@ -14,7 +14,10 @@ router.delete('/:id',isAuthenticate,isAdmin,gameTypeController.delete)
 
 router.put('/:id',isAuthenticate,gameTypeController.update)
 
-//obtener game por la id del mismo
+//obtener todos los gametype por la id del mismo
 router.get('/',isAuthenticate,gameTypeController.getAll)
+
+//Obtener 1 por la id de este
+router.get('/:id',isAuthenticate,gameTypeController.getAll)
 
 export default router

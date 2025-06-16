@@ -26,6 +26,12 @@ export default class GameTypeService{
         
     }
 
+    static async getByID(id:number){
+        const foundGametype=await prisma.gameType.findUnique({where:{id}})
+        if(!foundGametype) throw new httpException(404,'GameType not found')
+        return foundGametype
+    }
+
     static async getAll(){
         const gameTypes=await prisma.gameType.findMany()
         console.log(gameTypes)

@@ -46,9 +46,22 @@ class gameTypeController{
     static async getAll(req:Request,res:Response,next:NextFunction) {
             
             try {
-                console.log('Me han pedido los gametypes')
+
                    const gameTypes=await GameTypeService.getAll()
                    res.status(200).json(gameTypes)
+                   
+            } catch (error) {
+                   next(error)
+            }
+    
+        }
+
+        static async getById(req:Request,res:Response,next:NextFunction) {
+            
+            try {
+                const id=Number.parseInt(req.params.id)
+                const gameTypes=await GameTypeService.getByID(id)
+                res.status(200).json(gameTypes)
                    
             } catch (error) {
                    next(error)
